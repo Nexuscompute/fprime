@@ -12,7 +12,7 @@
 
 
 #include <Svc/FatalHandler/FatalHandlerComponentImpl.hpp>
-#include "Fw/Types/BasicTypes.hpp"
+#include <FpConfig.hpp>
 
 namespace Svc {
 
@@ -26,14 +26,6 @@ namespace Svc {
     ) : FatalHandlerComponentBase(compName)
   {
 
-  }
-
-  void FatalHandlerComponentImpl ::
-    init(
-        const NATIVE_INT_TYPE instance
-    )
-  {
-    FatalHandlerComponentBase::init(instance);
   }
 
   FatalHandlerComponentImpl ::

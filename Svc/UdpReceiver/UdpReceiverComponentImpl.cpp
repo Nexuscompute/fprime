@@ -12,7 +12,7 @@
 
 
 #include <Svc/UdpReceiver/UdpReceiverComponentImpl.hpp>
-#include "Fw/Types/BasicTypes.hpp"
+#include <FpConfig.hpp>
 #include <sys/types.h>
 #include <cstring>
 #include <cerrno>
@@ -22,8 +22,8 @@
 #include <arpa/inet.h>
 #include <Os/TaskString.hpp>
 
-//#define DEBUG_PRINT(x,...) printf(x,##__VA_ARGS__)
-#define DEBUG_PRINT(x,...)
+//#define DEBUG_PRINT(...) printf(##__VA_ARGS__)
+#define DEBUG_PRINT(...)
 
 namespace Svc {
 
@@ -44,14 +44,6 @@ namespace Svc {
         m_currSeq(0)
   {
 
-  }
-
-  void UdpReceiverComponentImpl ::
-    init(
-        const NATIVE_INT_TYPE instance
-    )
-  {
-    UdpReceiverComponentBase::init(instance);
   }
 
   UdpReceiverComponentImpl ::
@@ -118,7 +110,7 @@ namespace Svc {
   void UdpReceiverComponentImpl ::
     Sched_handler(
         const NATIVE_INT_TYPE portNum,
-        NATIVE_UINT_TYPE context
+        U32 context
     )
   {
       this->tlmWrite_UR_BytesReceived(this->m_bytesReceived);

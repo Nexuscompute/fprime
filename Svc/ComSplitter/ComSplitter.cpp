@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------------
 
 #include <Svc/ComSplitter/ComSplitter.hpp>
-#include "Fw/Types/BasicTypes.hpp"
+#include <FpConfig.hpp>
 
 namespace Svc {
 
@@ -24,12 +24,6 @@ namespace Svc {
     ~ComSplitter()
   {
 
-  }
-
-  void ComSplitter ::
-    init(NATIVE_INT_TYPE instance)
-  {
-    ComSplitterComponentBase::init(instance);
   }
 
   // ----------------------------------------------------------------------
@@ -57,4 +51,4 @@ namespace Svc {
     }
   }
 
-};
+}

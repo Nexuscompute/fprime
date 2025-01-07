@@ -12,7 +12,6 @@ namespace Drv {
         // Only called by derived class
         BlockDriverImpl(const char* compName);
 
-        void init(NATIVE_INT_TYPE queueDepth, NATIVE_INT_TYPE instanceId = 0);
         ~BlockDriverImpl();
         // a little hack to get the reference running
         void callIsr();
@@ -22,7 +21,7 @@ namespace Drv {
         // downcalls for input ports
         void InterruptReport_internalInterfaceHandler(U32 ip);
         void BufferIn_handler(NATIVE_INT_TYPE portNum, Drv::DataBuffer& buffer);
-        void Sched_handler(NATIVE_INT_TYPE portNum, NATIVE_UINT_TYPE context);
+        void Sched_handler(NATIVE_INT_TYPE portNum, U32 context);
         //! Handler implementation for PingIn
         //!
         void PingIn_handler(

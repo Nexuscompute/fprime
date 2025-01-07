@@ -34,13 +34,6 @@ namespace Svc {
           const char *const compName //!< The component name
       );
 
-      //! Initialize object FileManager
-      //!
-      void init(
-          const NATIVE_INT_TYPE queueDepth, //!< The queue depth
-          const NATIVE_INT_TYPE instance //!< The instance number
-      );
-
       //! Destroy object FileManager
       //!
       ~FileManager();
@@ -64,7 +57,8 @@ namespace Svc {
       void RemoveFile_cmdHandler(
           const FwOpcodeType opCode, //!< The opcode
           const U32 cmdSeq, //!< The command sequence number
-          const Fw::CmdStringArg& fileName //!< The file to remove
+          const Fw::CmdStringArg& fileName, //!< The file to remove
+          const bool ignoreErrors //!< Ignore missing files
       );
 
       //! Implementation for MoveFile command handler
@@ -100,6 +94,14 @@ namespace Svc {
           const U32 cmdSeq, //!< The command sequence number
           const Fw::CmdStringArg& source, //! The name of the file to take content from
           const Fw::CmdStringArg& target //! The name of the file to append to
+      );
+
+      //! Implementation for FileSize command handler
+      //!
+      void FileSize_cmdHandler(
+          const FwOpcodeType opCode, //!< The opcode
+          const U32 cmdSeq, //!< The command sequence number
+          const Fw::CmdStringArg& fileName //!< The file to get the size of
       );
 
       //! Handler implementation for pingIn

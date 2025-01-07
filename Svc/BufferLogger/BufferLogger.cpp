@@ -28,15 +28,6 @@ namespace Svc {
 
   }
 
-  void BufferLogger ::
-    init(
-        const NATIVE_INT_TYPE queueDepth,
-        const NATIVE_INT_TYPE instance
-    )
-  {
-    BufferLoggerComponentBase::init(queueDepth, instance);
-  }
-
   // ----------------------------------------------------------------------
   // Public methods
   // ----------------------------------------------------------------------
@@ -94,7 +85,7 @@ namespace Svc {
   void BufferLogger ::
     schedIn_handler(
         const NATIVE_INT_TYPE portNum,
-        NATIVE_UINT_TYPE context
+        U32 context
     )
   {
     // TODO
@@ -157,4 +148,4 @@ namespace Svc {
     }
   }
 
-};
+}

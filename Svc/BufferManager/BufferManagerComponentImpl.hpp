@@ -68,12 +68,6 @@ namespace Svc
             const char *const compName /*!< The component name*/
         );
 
-        //! Initialize object BufferManager
-        //!
-        void init(
-            const NATIVE_INT_TYPE instance = 0 /*!< The instance number*/
-        );
-
         // Defines a buffer bin
         struct BufferBin
         {
@@ -127,7 +121,7 @@ namespace Svc
         //!
         void schedIn_handler(
             const NATIVE_INT_TYPE portNum, /*!< The port number*/
-            NATIVE_UINT_TYPE context /*!< The call order*/
+            U32 context /*!< The call order*/
         );
 
 

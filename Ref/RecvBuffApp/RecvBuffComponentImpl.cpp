@@ -1,6 +1,6 @@
 #include <Ref/RecvBuffApp/RecvBuffComponentImpl.hpp>
-#include <Fw/Types/BasicTypes.hpp>
-#include <Os/Log.hpp>
+#include <FpConfig.hpp>
+#include <Os/Console.hpp>
 #include <Fw/Types/Assert.hpp>
 
 #include <cstdio>
@@ -17,11 +17,6 @@ namespace Ref {
         this->m_stats.setBuffRecv(0);
         this->m_stats.setBuffErr(0);
         this->m_stats.setPacketStatus(PacketRecvStatus::PACKET_STATE_NO_PACKETS);
-    }
-
-
-    void RecvBuffImpl::init(NATIVE_INT_TYPE instanceId) {
-        RecvBuffComponentBase::init(instanceId);
     }
 
     RecvBuffImpl::~RecvBuffImpl() {
@@ -79,7 +74,7 @@ namespace Ref {
 
     void RecvBuffImpl::toString(char* str, I32 buffer_size) {
 #if FW_OBJECT_NAMES == 1
-        (void)snprintf(str, buffer_size, "RecvBuffImpl: %s: ATM recd count: %d", this->m_objName,
+        (void)snprintf(str, buffer_size, "RecvBuffImpl: %s: ATM recd count: %d", this->m_objName.toChar(),
                         (int) this->m_buffsReceived);
 #else
         (void)snprintf(str, buffer_size, "RecvBuffImpl: ATM recd count: %d",

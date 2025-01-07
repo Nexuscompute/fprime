@@ -1,4 +1,4 @@
-\page DrvTcpServer Tcp Server Component
+\page DrvTcpServer Drv::TcpServer Component
 # Drv::TcpServer Tcp Server Component
 
 The TCP server component bridges the byte stream driver model interface to a remote TCP client to which this tcp server
@@ -59,7 +59,6 @@ bool constructApp(bool dump, U32 port_number, char* hostname) {
     if (hostname != nullptr && port_number != 0) {
         Os::TaskString name("ReceiveTask");
         comm.configure(hostname, port_number);
-        comm.startup();
         comm.startSocketTask(name);
     }
 }

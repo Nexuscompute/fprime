@@ -32,8 +32,6 @@ namespace Svc {
 
       ~ComSplitter();
 
-      void init(NATIVE_INT_TYPE instance);
-
       // ----------------------------------------------------------------------
       // Handler implementations
       // ----------------------------------------------------------------------
@@ -48,6 +46,6 @@ namespace Svc {
 
     };
 
-};
+}
 
 #endif

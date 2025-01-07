@@ -40,13 +40,6 @@ namespace Svc {
     ActiveLoggerImpl::~ActiveLoggerImpl() {
     }
 
-    void ActiveLoggerImpl::init(
-            NATIVE_INT_TYPE queueDepth, /*!< The queue depth*/
-            NATIVE_INT_TYPE instance /*!< The instance number*/
-            ) {
-        ActiveLoggerComponentBase::init(queueDepth,instance);
-    }
-
     void ActiveLoggerImpl::LogRecv_handler(NATIVE_INT_TYPE portNum, FwEventIdType id, Fw::Time &timeTag, const Fw::LogSeverity& severity, Fw::LogBuffer &args) {
 
         // make sure ID is not zero. Zero is reserved for ID filter.
@@ -127,13 +120,6 @@ namespace Svc {
     }
 
     void ActiveLoggerImpl::SET_EVENT_FILTER_cmdHandler(FwOpcodeType opCode, U32 cmdSeq, FilterSeverity filterLevel, Enabled filterEnable) {
-        if (  (filterLevel.e > FilterSeverity::DIAGNOSTIC) or
-              (filterLevel.e < FilterSeverity::WARNING_HI) or
-              (filterEnable.e < Enabled::ENABLED) or
-              (filterEnable.e > Enabled::DISABLED)) {
-            this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::VALIDATION_ERROR);
-            return;
-        }
         this->m_filterState[filterLevel.e].enabled = filterEnable;
         this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::OK);
     }
@@ -144,16 +130,6 @@ namespace Svc {
             U32 ID,
             Enabled idEnabled //!< ID filter state
         ) {
-
-        // check parameter
-        switch (idEnabled.e) {
-            case Enabled::ENABLED:
-            case Enabled::DISABLED:
-                break;
-            default:
-                this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::VALIDATION_ERROR);
-                return;
-        }
 
         if (Enabled::ENABLED == idEnabled.e) { // add ID
             // search list for existing entry

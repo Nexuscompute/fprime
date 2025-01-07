@@ -111,6 +111,9 @@ namespace Svc {
                   const FwTimeContextStoreType seqTimeContext //!< The sequence file time context
               );
 
+              // No Records 
+              void noRecords();
+
             PRIVATE:
 
               //! The enclosing component
@@ -225,7 +228,7 @@ namespace Svc {
           );
 
           //! Set the file name. Also sets the log file name.
-          void setFileName(const Fw::CmdStringArg& fileName);
+          void setFileName(const Fw::StringBase& fileName);
 
           //! Get the file name
           //! \return The file name
@@ -235,13 +238,17 @@ namespace Svc {
           //! \return The log file name
           Fw::LogStringArg& getLogFileName();
 
+          //! Get the normal string file name
+          //! \return The normal string file name
+          Fw::String& getStringFileName();
+
           //! Get the sequence header
           const Header& getHeader() const;
 
           //! Load a sequence file
           //! \return Success or failure
           virtual bool loadFile(
-              const Fw::CmdStringArg& fileName //!< The file name
+              const Fw::StringBase& fileName //!< The file name
           ) = 0;
 
           //! Query whether the sequence has any more records
@@ -276,6 +283,9 @@ namespace Svc {
 
           //! Copy of file name for events
           Fw::LogStringArg m_logFileName;
+
+          //! Copy of file name for ports
+          Fw::String m_stringFileName;
 
           //! Serialize buffer to hold the binary sequence data
           Fw::ExternalSerializeBuffer m_buffer;
@@ -341,7 +351,7 @@ namespace Svc {
           //! Load a sequence file
           //! \return Success or failure
           bool loadFile(
-              const Fw::CmdStringArg& fileName //!< The file name
+              const Fw::StringBase& fileName //!< The file name
           );
 
           //! Query whether the sequence has any more records
@@ -515,12 +525,6 @@ namespace Svc {
           const char* compName //!< The component name
       );
 
-      //! Initialize a CmdSequencer
-      void init(
-          const NATIVE_INT_TYPE queueDepth, //!< The queue depth
-          const NATIVE_INT_TYPE instance //!< The instance number
-      );
-
       //! (Optional) Set a timeout.
       //! Sequence will quit if a command takes longer than the number of
       //! seconds in the timeout value.
@@ -548,7 +552,7 @@ namespace Svc {
       //! (Optional) Load a sequence to run later.
       //! When you call this function, the event ports must be connected.
       void loadSequence(
-          const Fw::String& fileName //!< The file name
+          const Fw::StringBase& fileName //!< The file name
       );
 
       //! Return allocated buffer. Call during shutdown.
@@ -582,7 +586,7 @@ namespace Svc {
       //! Handler for input port seqRunIn
       void seqRunIn_handler(
           NATIVE_INT_TYPE portNum, //!< The port number
-          Fw::String &filename //!< The sequence file
+          const Fw::StringBase& filename //!< The sequence file
       );
 
       //! Handler for ping port
@@ -673,7 +677,7 @@ namespace Svc {
       //! Load a sequence file
       //! \return Success or failure
       bool loadFile(
-          const Fw::CmdStringArg& fileName //!< The file name
+          const Fw::StringBase& fileName //!< The file name
       );
 
       //! Perform a Cancel command
@@ -776,6 +780,6 @@ namespace Svc {
       bool m_join_waiting;
   };
 
-};
+}
 
 #endif

@@ -12,7 +12,7 @@
 
 
 #include <Ref/PingReceiver/PingReceiverComponentImpl.hpp>
-#include "Fw/Types/BasicTypes.hpp"
+#include <FpConfig.hpp>
 
 namespace Ref {
 
@@ -26,15 +26,6 @@ namespace Ref {
     ) : PingReceiverComponentBase(compName), m_inhibitPings(false), m_pingsRecvd(0)
   {
 
-  }
-
-  void PingReceiverComponentImpl ::
-    init(
-        const NATIVE_INT_TYPE queueDepth,
-        const NATIVE_INT_TYPE instance
-    )
-  {
-    PingReceiverComponentBase::init(queueDepth, instance);
   }
 
   PingReceiverComponentImpl ::
