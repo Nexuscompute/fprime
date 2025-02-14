@@ -116,37 +116,37 @@ namespace Svc {
         PRIVATE:
 
           //! The enclosing BufferLogger instance
-          BufferLogger& bufferLogger;
+          BufferLogger& m_bufferLogger;
 
           //! The prefix to use for file names
-          Fw::String prefix;
+          Fw::String m_prefix;
 
           //! The suffix to use for file names
-          Fw::String suffix;
+          Fw::String m_suffix;
 
           //! The file name base
-          Fw::String baseName;
+          Fw::String m_baseName;
 
           //! The counter to use for the same file name
-          NATIVE_UINT_TYPE fileCounter;
+          NATIVE_UINT_TYPE m_fileCounter;
 
           //! The maximum file size
-          U32 maxSize;
+          U32 m_maxSize;
 
           //! The number of bytes to use when storing the size field at the start of each buffer
-          U8 sizeOfSize;
+          U8 m_sizeOfSize;
 
           //! The name of the currently open file
-          Fw::String name;
+          Fw::String m_name;
 
           // The current mode
-          Mode::t mode;
+          Mode::t m_mode;
 
           //! The underlying Os::File representation
-          Os::File osFile;
+          Os::File m_osFile;
 
           //! The number of bytes written to the current file
-          U32 bytesWritten;
+          U32 m_bytesWritten;
 
       }; // class File
 
@@ -161,11 +161,6 @@ namespace Svc {
           const char *const compName /*!< The component name*/
       );
 
-      //! Initialize a BufferLogger object
-      void init(
-          const NATIVE_INT_TYPE queueDepth, //!< The queue depth
-          const NATIVE_INT_TYPE instance //!< The instance number
-      );
 
       // ----------------------------------------------------------------------
       // Public methods
@@ -188,14 +183,14 @@ namespace Svc {
       //! Handler implementation for bufferSendIn
       //!
       void bufferSendIn_handler(
-          const NATIVE_INT_TYPE portNum, //!< The port number
+          const FwIndexType portNum, //!< The port number
           Fw::Buffer& fwBuffer
       );
 
       //! Handler implementation for comIn
       //!
       void comIn_handler(
-          const NATIVE_INT_TYPE portNum, //!< The port number
+          const FwIndexType portNum, //!< The port number
           Fw::ComBuffer &data, //!< Buffer containing packet data
           U32 context //!< Call context value; meaning chosen by user
       );
@@ -203,15 +198,15 @@ namespace Svc {
       //! Handler implementation for pingIn
       //!
       void pingIn_handler(
-          const NATIVE_INT_TYPE portNum, //!< The port number
+          const FwIndexType portNum, //!< The port number
           U32 key //!< Value to return to pinger
       );
 
       //! Handler implementation for schedIn
       //!
       void schedIn_handler(
-          const NATIVE_INT_TYPE portNum, /*!< The port number*/
-          NATIVE_UINT_TYPE context /*!< The call order*/
+          const FwIndexType portNum, /*!< The port number*/
+          U32 context /*!< The call order*/
       );
 
     PRIVATE:

@@ -8,11 +8,7 @@
 #include <Autocoders/Python/test/command_multi_inst/TestCommand1Impl.hpp>
 #include <cstdio>
 
-#if FW_OBJECT_NAMES == 1
 TestCommand1Impl::TestCommand1Impl(const char* name) : Test1ComponentBase(name)
-#else
-TestCommand1Impl::TestCommand1Impl()
-#endif
 {
     // TODO Auto-generated constructor stub
 
@@ -27,7 +23,7 @@ void TestCommand1Impl::init(NATIVE_INT_TYPE queueDepth, //!< The queue depth
     Test1ComponentBase::init(queueDepth,instance);
 }
 
-void TestCommand1Impl::aport_handler(NATIVE_INT_TYPE portNum, I32 arg4, F32 arg5, U8 arg6) {
+void TestCommand1Impl::aport_handler(FwIndexType portNum, I32 arg4, F32 arg5, U8 arg6) {
 }
 
 void TestCommand1Impl::TEST_CMD_1_cmdHandler(

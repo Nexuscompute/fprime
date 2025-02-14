@@ -1,7 +1,7 @@
 #include <Ref/SendBuffApp/SendBuffComponentImpl.hpp>
-#include <Fw/Types/BasicTypes.hpp>
+#include <FpConfig.hpp>
 #include <Fw/Types/Assert.hpp>
-#include <Os/Log.hpp>
+#include <Os/Console.hpp>
 #include <cstring>
 
 #include <cstdio>
@@ -27,11 +27,7 @@ namespace Ref {
 
     }
 
-    void SendBuffImpl::init(NATIVE_INT_TYPE queueDepth, NATIVE_INT_TYPE instance) {
-        SendBuffComponentBase::init(queueDepth,instance);
-    }
-
-    void SendBuffImpl::SchedIn_handler(NATIVE_INT_TYPE portNum, NATIVE_UINT_TYPE context) {
+    void SendBuffImpl::SchedIn_handler(FwIndexType portNum, U32 context) {
 
         // first, dequeue any messages
 
@@ -52,7 +48,8 @@ namespace Ref {
             // reset buffer
             this->m_testBuff.resetSer();
             // serialize packet id
-            FW_ASSERT(this->m_testBuff.serialize(this->m_currPacketId) == Fw::FW_SERIALIZE_OK);
+            Fw::SerializeStatus serStat = this->m_testBuff.serialize(this->m_currPacketId);
+            FW_ASSERT(serStat == Fw::FW_SERIALIZE_OK);
             // increment packet id
             this->m_currPacketId++;
             this->m_buffsSent++;
@@ -75,9 +72,11 @@ namespace Ref {
                 this->log_WARNING_HI_PacketErrorInserted(this->m_currPacketId-1);
             }
             // serialize data
-            FW_ASSERT(this->m_testBuff.serialize(testData,dataSize) == Fw::FW_SERIALIZE_OK);
+            serStat = this->m_testBuff.serialize(testData,dataSize);
+            FW_ASSERT(serStat == Fw::FW_SERIALIZE_OK);
             // serialize checksum
-            FW_ASSERT(this->m_testBuff.serialize(csum) == Fw::FW_SERIALIZE_OK);
+            serStat = this->m_testBuff.serialize(csum);
+            FW_ASSERT(serStat == Fw::FW_SERIALIZE_OK);
             // send data
             this->Data_out(0,this->m_testBuff);
 
@@ -87,18 +86,6 @@ namespace Ref {
 
         this->tlmWrite_SendState(this->m_state);
     }
-
-    void SendBuffImpl::toString(char* str, I32 buffer_size) {
-#if FW_OBJECT_NAMES == 1
-        (void) snprintf(str, buffer_size, "Send Buff Component: %s: count: %d Buffs: %d", this->m_objName,
-                        (int) this->m_invocations, (int) this->m_buffsSent);
-        str[buffer_size-1] = 0;
-#else
-        (void) snprintf(str, buffer_size, "Lps Atm Component: count: %d ATMs: %d",
-                        (int) this->m_invocations, (int) this->m_buffsSent);
-#endif
-    }
-
 
     void SendBuffImpl::SB_START_PKTS_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) {
         this->m_sendPackets = true;

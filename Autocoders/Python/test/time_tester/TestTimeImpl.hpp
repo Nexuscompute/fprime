@@ -12,17 +12,13 @@
 
 class TestTimeImpl: public Time::TimeTesterComponentBase {
     public:
-#if FW_OBJECT_NAMES == 1
         TestTimeImpl(const char* compName);
-#else
-        TestTimeImpl();
-#endif
         virtual ~TestTimeImpl();
         void init();
         void setTime(Fw::Time time);
     protected:
         void timeGetPort_handler(
-                NATIVE_INT_TYPE portNum, /*!< The port number*/
+                FwIndexType portNum, /*!< The port number*/
                 Fw::Time &time /*!< The U32 cmd argument*/
             );
     private:
