@@ -24,14 +24,7 @@ namespace Svc {
     CommandDispatcherImpl::~CommandDispatcherImpl() {
     }
 
-    void CommandDispatcherImpl::init(
-            NATIVE_INT_TYPE queueDepth, /*!< The queue depth*/
-            NATIVE_INT_TYPE instance /*!< The instance number*/
-            ) {
-        CommandDispatcherComponentBase::init(queueDepth);
-    }
-
-    void CommandDispatcherImpl::compCmdReg_handler(NATIVE_INT_TYPE portNum, FwOpcodeType opCode) {
+    void CommandDispatcherImpl::compCmdReg_handler(FwIndexType portNum, FwOpcodeType opCode) {
         // search for an empty slot
         bool slotFound = false;
         for (U32 slot = 0; slot < FW_NUM_ARRAY_ELEMENTS(this->m_entryTable); slot++) {
@@ -39,7 +32,7 @@ namespace Svc {
                 this->m_entryTable[slot].opcode = opCode;
                 this->m_entryTable[slot].port = portNum;
                 this->m_entryTable[slot].used = true;
-                this->log_DIAGNOSTIC_OpCodeRegistered(opCode,portNum,slot);
+                this->log_DIAGNOSTIC_OpCodeRegistered(opCode,portNum,static_cast<I32>(slot));
                 slotFound = true;
             } else if ((this->m_entryTable[slot].used) &&
                 (this->m_entryTable[slot].opcode == opCode) &&
@@ -48,13 +41,13 @@ namespace Svc {
                     slotFound = true;
                     this->log_DIAGNOSTIC_OpCodeReregistered(opCode,portNum);
             } else if (this->m_entryTable[slot].used) { // make sure no duplicates
-                FW_ASSERT(this->m_entryTable[slot].opcode != opCode, opCode);
+                FW_ASSERT(this->m_entryTable[slot].opcode != opCode, static_cast<FwAssertArgType>(opCode));
             }
         }
-        FW_ASSERT(slotFound,opCode);
+        FW_ASSERT(slotFound,static_cast<FwAssertArgType>(opCode));
     }
 
-    void CommandDispatcherImpl::compCmdStat_handler(NATIVE_INT_TYPE portNum, FwOpcodeType opCode, U32 cmdSeq, const Fw::CmdResponse &response) {
+    void CommandDispatcherImpl::compCmdStat_handler(FwIndexType portNum, FwOpcodeType opCode, U32 cmdSeq, const Fw::CmdResponse &response) {
         // check response and log
         if (Fw::CmdResponse::OK == response.e) {
             this->log_COMMAND_OpCodeCompleted(opCode);
@@ -89,7 +82,7 @@ namespace Svc {
         }
     }
 
-    void CommandDispatcherImpl::seqCmdBuff_handler(NATIVE_INT_TYPE portNum, Fw::ComBuffer &data, U32 context) {
+    void CommandDispatcherImpl::seqCmdBuff_handler(FwIndexType portNum, Fw::ComBuffer &data, U32 context) {
 
         Fw::CmdPacket cmdPkt;
         Fw::SerializeStatus stat = cmdPkt.deserialize(data);
@@ -140,7 +133,11 @@ namespace Svc {
                 }
             } // end if status port connected
             // pass arguments to argument buffer
-            this->compCmdSend_out(this->m_entryTable[entry].port,cmdPkt.getOpCode(),this->m_seq,cmdPkt.getArgBuffer());
+            this->compCmdSend_out(
+                this->m_entryTable[entry].port,
+                cmdPkt.getOpCode(),
+                this->m_seq,
+                cmdPkt.getArgBuffer());
             // log dispatched command
             this->log_COMMAND_OpCodeDispatched(cmdPkt.getOpCode(),this->m_entryTable[entry].port);
 
@@ -189,7 +186,7 @@ namespace Svc {
         this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::OK);
     }
 
-    void CommandDispatcherImpl::pingIn_handler(NATIVE_INT_TYPE portNum, U32 key) {
+    void CommandDispatcherImpl::pingIn_handler(FwIndexType portNum, U32 key) {
         // respond to ping
         this->pingOut_out(0,key);
     }

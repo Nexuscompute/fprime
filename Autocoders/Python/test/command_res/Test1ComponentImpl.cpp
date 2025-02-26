@@ -12,7 +12,7 @@
 
 
 #include <Autocoders/Python/test/command_res/Test1ComponentImpl.hpp>
-#include "Fw/Types/BasicTypes.hpp"
+#include <FpConfig.hpp>
 
 namespace Cmd {
 
@@ -21,14 +21,10 @@ namespace Cmd {
   // ----------------------------------------------------------------------
 
   Test1ComponentImpl ::
-#if FW_OBJECT_NAMES == 1
     Test1ComponentImpl(
         const char *const compName
     ) :
       Test1ComponentBase(compName)
-#else
-    Test1Impl()
-#endif
   {
 
   }
@@ -54,7 +50,7 @@ namespace Cmd {
 
   void Test1ComponentImpl ::
     aport_handler(
-        const NATIVE_INT_TYPE portNum,
+        const FwIndexType portNum,
         I32 arg4,
         F32 arg5,
         U8 arg6

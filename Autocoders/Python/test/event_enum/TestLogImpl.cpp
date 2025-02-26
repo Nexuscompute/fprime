@@ -8,11 +8,7 @@
 #include <Autocoders/Python/test/event_enum/TestLogImpl.hpp>
 #include <cstdio>
 
-#if FW_OBJECT_NAMES == 1
 TestLogImpl::TestLogImpl(const char* name) : Somewhere::TestLogComponentBase(name)
-#else
-TestLogImpl::TestLogImpl() : Somewhere::TestLogComponentBase()
-#endif
 {
 }
 
@@ -24,7 +20,7 @@ void TestLogImpl::init() {
 }
 
 
-void TestLogImpl::aport_handler(NATIVE_INT_TYPE portNum, I32 arg4, F32 arg5, U8 arg6) {
+void TestLogImpl::aport_handler(FwIndexType portNum, I32 arg4, F32 arg5, U8 arg6) {
 
 }
 

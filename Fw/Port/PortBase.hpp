@@ -2,7 +2,7 @@
 #define FW_PORT_BASE_HPP
 
 #include <Fw/Obj/ObjBase.hpp>
-#include <Fw/Types/BasicTypes.hpp>
+#include <FpConfig.hpp>
 #include <Fw/Types/Serializable.hpp>
 
 #if FW_PORT_TRACING == 1
@@ -17,10 +17,10 @@ namespace Fw {
         public:
 #if FW_PORT_TRACING == 1
             static void setTrace(bool trace); // !< turn tracing on or off
-            void overrideTrace(bool override, bool trace); // !< override tracing for a particular port
+            void ovrTrace(bool ovr, bool trace); // !< override tracing for a particular port
 #endif
 
-            bool isConnected();
+            bool isConnected() const;
         protected:
             // Should only be accessed by derived classes
             PortBase(); // Constructor
@@ -28,12 +28,14 @@ namespace Fw {
             virtual void init(); // !< initialization function
 
 #if FW_PORT_TRACING == 1
-            void trace(); // !<  trace port calls if active
+            void trace() const; // !<  trace port calls if active
 #endif
             Fw::ObjBase* m_connObj; // !< object port is connected to
 
 #if FW_OBJECT_TO_STRING
-            virtual void toString(char* str, NATIVE_INT_TYPE size);
+            virtual const char* getToStringFormatString(); //!< Get format string for toString call
+
+            void toString(char* str, NATIVE_INT_TYPE size) override; //!< Unified port toString method
 #endif
 
 
@@ -41,7 +43,7 @@ namespace Fw {
 #if FW_PORT_TRACING == 1
             static bool s_trace; // !< global tracing is active
             bool m_trace; // !< local trace flag
-            bool m_override_trace; // !< flag to override global trace
+            bool m_ovr_trace; // !< flag to override global trace
 #endif
             // Disable constructors
             PortBase(PortBase*);
