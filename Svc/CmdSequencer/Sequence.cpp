@@ -20,7 +20,7 @@ namespace Svc {
         m_allocatorId(0)
     {
 
-    };
+    }
 
     CmdSequencerComponentImpl::Sequence ::
       ~Sequence()
@@ -85,7 +85,7 @@ namespace Svc {
         bool recoverable;
         this->m_allocatorId = identifier;
         this->m_buffer.setExtBuffer(
-            static_cast<U8*>(allocator.allocate(identifier,bytes,recoverable)),
+            static_cast<U8*>(allocator.allocate(static_cast<NATIVE_UINT_TYPE>(identifier),bytes,recoverable)),
             bytes
         );
     }
@@ -94,7 +94,7 @@ namespace Svc {
       deallocateBuffer(Fw::MemAllocator& allocator)
     {
         allocator.deallocate(
-            this->m_allocatorId,
+            static_cast<NATIVE_UINT_TYPE>(this->m_allocatorId),
             this->m_buffer.getBuffAddr()
         );
         this->m_buffer.clear();
@@ -108,10 +108,11 @@ namespace Svc {
     }
 
     void CmdSequencerComponentImpl::Sequence ::
-      setFileName(const Fw::CmdStringArg& fileName)
+      setFileName(const Fw::StringBase& fileName)
     {
         this->m_fileName = fileName;
         this->m_logFileName = fileName;
+        this->m_stringFileName = fileName;
     }
 
     Fw::CmdStringArg& CmdSequencerComponentImpl::Sequence ::
@@ -124,6 +125,12 @@ namespace Svc {
       getLogFileName()
     {
         return this->m_logFileName;
+    }
+
+    Fw::String& CmdSequencerComponentImpl::Sequence ::
+      getStringFileName()
+    {
+        return this->m_stringFileName;
     }
 
 }

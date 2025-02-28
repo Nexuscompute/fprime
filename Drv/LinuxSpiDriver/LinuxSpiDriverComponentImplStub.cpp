@@ -11,13 +11,14 @@
 // ======================================================================
 
 #include <Drv/LinuxSpiDriver/LinuxSpiDriverComponentImpl.hpp>
-#include "Fw/Types/BasicTypes.hpp"
+#include <FpConfig.hpp>
 
 namespace Drv {
 
     bool LinuxSpiDriverComponentImpl::open(NATIVE_INT_TYPE device,
                                            NATIVE_INT_TYPE select,
-                                           SpiFrequency clock) {
+                                           SpiFrequency clock,
+                                           SpiMode spiMode) {
         //TODO: fill this function out
         return false;
     }
@@ -27,7 +28,7 @@ namespace Drv {
     // ----------------------------------------------------------------------
 
     void LinuxSpiDriverComponentImpl::SpiReadWrite_handler(
-            const NATIVE_INT_TYPE portNum, Fw::Buffer &WriteBuffer,
+            const FwIndexType portNum, Fw::Buffer &WriteBuffer,
             Fw::Buffer &readBuffer) {
         // TODO
     }

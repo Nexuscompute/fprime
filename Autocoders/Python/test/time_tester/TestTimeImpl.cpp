@@ -8,12 +8,7 @@
 #include <Autocoders/Python/test/time_tester/TestTimeImpl.hpp>
 #include <cstdio>
 
-#if FW_OBJECT_NAMES == 1
 TestTimeImpl::TestTimeImpl(const char* name) : Time::TimeTesterComponentBase(name)
-#else
-TestTimeImpl::TestTimeImpl() :
-Time::TimeTesterComponentBase()
-#endif
 {
 }
 
@@ -21,7 +16,7 @@ TestTimeImpl::~TestTimeImpl() {
 }
 
 void TestTimeImpl::timeGetPort_handler(
-        NATIVE_INT_TYPE portNum, /*!< The port number*/
+        FwIndexType portNum, /*!< The port number*/
         Fw::Time &time /*!< The U32 cmd argument*/
     ) {
     time = this->m_time;

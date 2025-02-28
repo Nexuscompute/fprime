@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------------
 
 #include <Svc/ComSplitter/ComSplitter.hpp>
-#include "Fw/Types/BasicTypes.hpp"
+#include <FpConfig.hpp>
 
 namespace Svc {
 
@@ -26,19 +26,13 @@ namespace Svc {
 
   }
 
-  void ComSplitter ::
-    init(NATIVE_INT_TYPE instance)
-  {
-    ComSplitterComponentBase::init(instance);
-  }
-
   // ----------------------------------------------------------------------
   // Handler implementations
   // ----------------------------------------------------------------------
 
   void ComSplitter ::
     comIn_handler(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::ComBuffer &data,
         U32 context
     )
@@ -57,4 +51,4 @@ namespace Svc {
     }
   }
 
-};
+}

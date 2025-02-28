@@ -34,12 +34,6 @@ namespace Svc {
           const char *const compName /*!< The component name*/
       );
 
-      //! Initialize object UdpReceiver
-      //!
-      void init(
-          const NATIVE_INT_TYPE instance = 0 /*!< The instance number*/
-      );
-
       //! Destroy object UdpReceiver
       //!
       ~UdpReceiverComponentImpl();
@@ -66,8 +60,8 @@ namespace Svc {
       //! Handler implementation for Sched
       //!
       void Sched_handler(
-          const NATIVE_INT_TYPE portNum, /*!< The port number*/
-          NATIVE_UINT_TYPE context /*!< The call order*/
+          const FwIndexType portNum, /*!< The port number*/
+          U32 context /*!< The call order*/
       );
 
       static void workerTask(void* ptr); //!< worker task entry point

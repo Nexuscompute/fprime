@@ -8,12 +8,7 @@
 #include <Autocoders/Python/test/command1/TestCommandSourceImpl.hpp>
 #include <cstdio>
 
-#if FW_OBJECT_NAMES == 1
 TestCommandSourceImpl::TestCommandSourceImpl(const char* name) : Cmd::CommandTesterComponentBase(name)
-#else
-TestCommandSourceImpl::TestCommandSourceImpl() :
-        Cmd::CommandTesterComponentBase()
-#endif
 {
     // TODO Auto-generated constructor stub
 
@@ -24,12 +19,12 @@ TestCommandSourceImpl::~TestCommandSourceImpl() {
 }
 
 void TestCommandSourceImpl::cmdStatusPort_handler(
-        NATIVE_INT_TYPE portNum, FwOpcodeType opCode, U32 cmdSeq,
+        FwIndexType portNum, FwOpcodeType opCode, U32 cmdSeq,
         const Fw::CmdResponse& response) {
     this->printStatus(response);
 }
 
-void TestCommandSourceImpl::cmdRegPort_handler(NATIVE_INT_TYPE portNum, FwOpcodeType opCode) {
+void TestCommandSourceImpl::cmdRegPort_handler(FwIndexType portNum, FwOpcodeType opCode) {
     printf("Received registration for opcode %d\n",opCode);
 }
 

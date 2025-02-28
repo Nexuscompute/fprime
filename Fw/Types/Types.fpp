@@ -28,4 +28,59 @@ module Fw {
     ENABLED @< Enabled state
   }
 
+  @ On and off states
+  enum On {
+    OFF @< Off state
+    ON @< On state
+  }
+
+  @ Logic states
+  enum Logic {
+    LOW @< Logic low state
+    HIGH @< Logic high state
+  }
+
+  @ Open and closed states
+  enum Open {
+    CLOSED @< Closed state
+    OPEN @< Open state
+  }
+
+  @ Direction states
+  enum Direction {
+    IN @< In direction
+    OUT @< Out direction
+    INOUT @< In/Out direction
+  }
+
+  @ Active and inactive states
+  enum Active {
+    INACTIVE @< Inactive state
+    ACTIVE @< Active state
+  }
+
+  @ Health states
+  enum Health {
+    HEALTHY @< Healthy state
+    SICK @< Sick state
+    FAILED @< Failed state
+  }
+
+  @ Success/Failure
+  enum Success {
+      FAILURE @< Representing failure
+      SUCCESS @< Representing success
+  }
+
+  @ Wait or don't wait for something
+  enum Wait {
+    WAIT @< Wait for something
+    NO_WAIT @< Don't wait for something
+  }
+
+  enum Completed {
+    COMPLETED @< Completed successfully
+    CANCELED @< Canceled before completion
+    FAILED @< Failed to complete
+  }
 }

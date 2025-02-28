@@ -1,22 +1,18 @@
 #ifdef FPRIME_CMAKE
 #include "Autocoder/GTestBase.hpp"
 #else
-#include <GTestBase.hpp>
+#include <port_nogenGTestBase.hpp>
 #endif
 
 // Very minimal to test autocoder. Some day they'll be actual unit test code
 
 class ATester : public ExampleComponents::ExampleGTestBase {
     public:
-#if FW_OBJECT_NAMES == 1
         ATester() : ExampleComponents::ExampleGTestBase("comp",10) {
-#else
-        ATester() : ExampleComponents::ExampleGTestBase(10)  {
-#endif
     }
 
 		void from_exampleOutput_handler(
-			const NATIVE_INT_TYPE portNum, //!< The port number
+			const FwIndexType portNum, //!< The port number
 			I32 arg1, //!< A built-in type argument
 			const ANameSpace::mytype& arg2, //!< A user-defined type argument
 			U8 arg3, //!< The third argument
@@ -28,7 +24,7 @@ class ATester : public ExampleComponents::ExampleGTestBase {
 
 
 		void ATester::from_exampleOutput_handler(
-			const NATIVE_INT_TYPE portNum, //!< The port number
+			const FwIndexType portNum, //!< The port number
 			I32 arg1, //!< A built-in type argument
 			const ANameSpace::mytype& arg2, //!< A user-defined type argument
 			U8 arg3, //!< The third argument

@@ -8,11 +8,7 @@
 #include <Autocoders/Python/test/param_multi_inst/TestPrmImpl.hpp>
 #include <cstdio>
 
-#if FW_OBJECT_NAMES == 1
 TestPrmImpl::TestPrmImpl(const char* name) : Prm::TestPrmComponentBase(name)
-#else
-TestPrmImpl::TestPrmImpl() : Prm::TestPrmComponentBase()
-#endif
 {
 }
 
@@ -23,7 +19,7 @@ void TestPrmImpl::init() {
     Prm::TestPrmComponentBase::init();
 }
 
-void TestPrmImpl::aport_handler(NATIVE_INT_TYPE portNum, I32 arg4, F32 arg5, U8 arg6) {
+void TestPrmImpl::aport_handler(FwIndexType portNum, I32 arg4, F32 arg5, U8 arg6) {
 
 }
 

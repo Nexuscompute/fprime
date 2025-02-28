@@ -12,16 +12,12 @@
 
 class TestCommand1Impl: public Cmd::Test1ComponentBase {
     public:
-#if FW_OBJECT_NAMES == 1
         TestCommand1Impl(const char* compName);
-#else
-        TestCommand1Impl();
-#endif
         virtual ~TestCommand1Impl();
         void init(NATIVE_INT_TYPE queueDepth, //!< The queue depth
                 NATIVE_INT_TYPE instance = 0);
     protected:
-        void aport_handler(NATIVE_INT_TYPE portNum, I32 arg4, F32 arg5, U8 arg6);
+        void aport_handler(FwIndexType portNum, I32 arg4, F32 arg5, U8 arg6);
         void TEST_CMD_1_cmdHandler(
                 FwOpcodeType opCode, /*!< The opcode*/
                 U32 cmdSeq, /*!< The command sequence number*/
